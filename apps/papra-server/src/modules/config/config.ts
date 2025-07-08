@@ -5,6 +5,7 @@ import { loadConfig } from 'c12';
 import { defineConfig } from 'figue';
 import { memoize } from 'lodash-es';
 import { z } from 'zod';
+import { version } from '../../../package.json';
 import { authConfig } from '../app/auth/auth.config';
 import { databaseConfig } from '../app/database/database.config';
 import { documentsConfig } from '../documents/documents.config';
@@ -26,6 +27,11 @@ export const configDefinition = {
     schema: z.enum(['development', 'production', 'test']),
     default: 'development',
     env: 'NODE_ENV',
+  },
+  version: {
+    doc: 'The version of the application.',
+    schema: z.string(),
+    default: version,
   },
   client: {
     baseUrl: {
@@ -74,6 +80,12 @@ export const configDefinition = {
       schema: booleanishSchema,
       default: false,
       env: 'SERVER_SERVE_PUBLIC_DIR',
+    },
+    showConsoleIntro: {
+      doc: 'Whether to show the console intro',
+      schema: booleanishSchema,
+      default: true,
+      env: 'SHOW_CONSOLE_INTRO',
     },
   },
 

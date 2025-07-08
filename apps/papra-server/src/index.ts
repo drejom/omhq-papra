@@ -4,6 +4,7 @@ import { serve } from '@hono/node-server';
 import { setupDatabase } from './modules/app/database/database';
 import { ensureLocalDatabaseDirectoryExists } from './modules/app/database/database.services';
 import { createServer } from './modules/app/server';
+import { logConsoleIntro } from './modules/app/server.services';
 import { parseConfig } from './modules/config/config';
 import { createIngestionFolderWatcher } from './modules/ingestion-folders/ingestion-folders.usecases';
 import { createLogger } from './modules/shared/logger/logger';
@@ -13,6 +14,10 @@ import { taskDefinitions } from './modules/tasks/tasks.defiitions';
 const logger = createLogger({ namespace: 'app-server' });
 
 const { config } = await parseConfig({ env });
+
+if (config.server.showConsoleIntro) {
+  logConsoleIntro({ version: config.version });
+}
 
 await ensureLocalDatabaseDirectoryExists({ config });
 const { db, client } = setupDatabase(config.database);
