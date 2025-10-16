@@ -31,8 +31,8 @@ RUN pnpm deploy --filter=@papra/app-server --legacy --prod /prod/papra-server
 
 FROM base
 
-# Create a non-root user and group
-RUN groupadd -r nonroot && useradd -r -g nonroot nonroot && \
+# Create a non-root user and group with UID 568 (for host compatibility)
+RUN groupadd -g 568 nonroot && useradd -u 568 -g nonroot nonroot && \
     mkdir -p /home/nonroot/.cache/node/corepack && \
     chown -R nonroot:nonroot /home/nonroot
 
