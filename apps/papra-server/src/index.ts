@@ -29,6 +29,7 @@ const server = serve(
   {
     fetch: app.fetch,
     port: config.server.port,
+    hostname: '0.0.0.0',
   },
   ({ port }) => logger.info({ port }, 'Server started'),
 );
