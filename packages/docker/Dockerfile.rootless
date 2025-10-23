@@ -41,7 +41,8 @@ WORKDIR /app
 COPY --from=build /prod/papra-server ./
 COPY --from=build /app/apps/papra-client/dist ./public
 
-RUN mkdir -p ./app-data/db ./app-data/documents && chown -R nonroot:nonroot /app
+RUN mkdir -p ./app-data/db ./app-data/documents ./ingestion && \
+    chown -R nonroot:nonroot ./app-data ./ingestion
 
 # Switch to nonroot user
 USER nonroot
